@@ -1583,14 +1583,14 @@ body.soft-site .game-page {
   .play-sidebar-card,
   .board-card,
   .leaderboards-rail-card {
-    padding: 1.35rem;
-    border-radius: 2rem;
+    padding: 1rem;
+    border-radius: 1.6rem;
   }
 
   .play-stage-surface {
     min-height: auto;
-    gap: 0.8rem;
-    padding: 0.85rem;
+    gap: 0.6rem;
+    padding: 0.65rem;
   }
 
   .play-page .vision-grid-wrap,
@@ -1609,7 +1609,7 @@ body.soft-site .game-page {
 
   .play-page .status-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
+    gap: 0.5rem;
     order: 4;
   }
 
@@ -1636,8 +1636,8 @@ body.soft-site .game-page {
 
   .play-page .status-card,
   .play-page .side-card {
-    padding: 0.9rem;
-    border-radius: 1.25rem;
+    padding: 0.7rem;
+    border-radius: 1rem;
   }
 
   .play-page .metric-label {
@@ -1657,6 +1657,28 @@ body.soft-site .game-page {
 
   .play-page .tap-count {
     font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+
+  .play-page .progress-track {
+    height: 0.8rem;
+  }
+
+  .play-page .vision-grid-wrap,
+  .play-page .logic-board-wrap,
+  .play-page .tap-zone-wrap {
+    padding: 0.35rem 0 0;
+  }
+
+  .play-page .vision-grid,
+  .play-page .logic-board {
+    gap: 0.45rem;
+    max-width: min(100%, 18.75rem);
+    margin-inline: auto;
+  }
+
+  .play-page .vision-cell,
+  .play-page .logic-cell {
+    border-radius: 12px;
   }
 
   .play-page .play-heading-copy p {
@@ -1687,12 +1709,13 @@ body.soft-site .game-page {
   .play-page .play-stage-card,
   .play-page .play-bento-card,
   .play-page .play-sidebar-card {
-    padding: 1rem;
-    border-radius: 1.5rem;
+    padding: 0.85rem;
+    border-radius: 1.3rem;
   }
 
   .play-page .play-stage-surface {
-    padding: 0.75rem;
+    gap: 0.5rem;
+    padding: 0.55rem;
   }
 
   .play-page .tap-zone {
@@ -1725,20 +1748,26 @@ body.soft-site .game-page {
 
   .play-page .status-card,
   .play-page .side-card {
-    padding: 0.78rem;
-    border-radius: 1.05rem;
+    padding: 0.62rem;
+    border-radius: 0.9rem;
   }
 
   .play-page .status-grid {
-    gap: 0.55rem;
+    gap: 0.4rem;
   }
 
   .play-page .metric-value {
-    font-size: 0.96rem;
+    font-size: 0.9rem;
   }
 
   .play-page .metric-label {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+  }
+
+  .play-page .vision-grid,
+  .play-page .logic-board {
+    gap: 0.38rem;
+    max-width: min(100%, 17.5rem);
   }
 }
 
