@@ -1370,6 +1370,30 @@ body.soft-site .game-page {
   .play-page .play-bento-card h2 {
     font-size: 1.35rem;
   }
+
+  .play-page .play-stage-surface {
+    align-content: start;
+  }
+
+  .play-page .vision-grid-wrap,
+  .play-page .logic-board-wrap,
+  .play-page .tap-zone-wrap {
+    display: grid;
+    justify-items: center;
+    padding-top: 0.5rem;
+  }
+
+  .play-page .vision-grid,
+  .play-page .logic-board {
+    width: min(100%, 31rem);
+    margin-inline: auto;
+    gap: 0.7rem;
+  }
+
+  .play-page .status-grid {
+    grid-template-columns: repeat(4, minmax(0, 10rem));
+    justify-content: center;
+  }
 }
 
 @media (min-width: 861px) and (max-height: 900px) {
