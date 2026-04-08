@@ -35,6 +35,7 @@ const elements = {
   bestTime: document.getElementById("logic-best-time-value"),
   leaderboardList: document.getElementById("logic-leaderboard-list"),
   pattern: document.getElementById("logic-pattern-value"),
+  pressure: document.getElementById("logic-pressure-value"),
 };
 
 const state = {
@@ -130,6 +131,10 @@ function renderStatus() {
   elements.attempts.textContent = `${state.attempts}`;
   elements.progressFill.style.width = `${(state.levelIndex / LEVELS.length) * 100}%`;
   elements.pattern.textContent = getPatternLabel(level.pattern);
+  elements.pressure.textContent =
+    state.nextMoveIndex === 0
+      ? "Read first move"
+      : `${state.sequence.length - state.nextMoveIndex} moves left`;
 }
 
 function buildSequence(level) {

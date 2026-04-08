@@ -27,8 +27,9 @@ const elements = {
   level: document.getElementById("vision-level-value"),
   grid: document.getElementById("vision-grid"),
   gridValue: document.getElementById("vision-grid-value"),
+  gridDisplay: document.getElementById("vision-grid-display"),
   timer: document.getElementById("vision-timer-value"),
-  attempts: document.getElementById("vision-attempt-value"),
+  streak: document.getElementById("vision-attempt-value"),
   message: document.getElementById("vision-message-text"),
   retryButton: document.getElementById("vision-retry-button"),
   progressFill: document.getElementById("vision-progress-fill"),
@@ -121,15 +122,18 @@ function render() {
   const level = LEVELS[state.levelIndex];
   elements.level.textContent = `${state.levelIndex + 1} / ${LEVELS.length}`;
   elements.gridValue.textContent = `${level.size} x ${level.size}`;
+  elements.gridDisplay.textContent = `${level.size} x ${level.size}`;
   elements.timer.textContent = formatMs(Math.max(0, state.remainingMs));
-  elements.attempts.textContent = `${state.attempts}`;
+  elements.streak.textContent = `x${state.streak}`;
   elements.progressFill.style.width = `${(state.levelIndex / LEVELS.length) * 100}%`;
   elements.pattern.textContent =
     state.levelIndex >= 6
-      ? "Decoys may flash"
-      : state.streak >= 2
-        ? "Streak bonus active"
-        : "One tile differs";
+      ? "Flash decoys"
+      : state.nextLevelBonusMs > 0
+        ? "+0.6s next level"
+        : state.streak >= 2
+          ? "Streak ready"
+          : "No bonus";
 }
 
 function stopTimer() {
@@ -289,7 +293,7 @@ function mountLevel() {
   }
 
   state.locked = false;
-  if (state.levelIndex >= 6) {
+  if (state.levelIndex >= 4) {
     const wrongCells = [...elements.grid.children].filter((_, index) => index !== state.targetIndex);
     const decoy = wrongCells[Math.floor(Math.random() * wrongCells.length)];
     state.distractorTimeoutId = window.setTimeout(() => {
@@ -299,8 +303,8 @@ function mountLevel() {
       decoy.classList.add("vision-cell-decoy");
       state.distractorResetId = window.setTimeout(() => {
         decoy.classList.remove("vision-cell-decoy");
-      }, 180);
-    }, 650);
+      }, 260);
+    }, 520);
   }
   render();
   startTimer();

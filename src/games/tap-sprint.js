@@ -26,6 +26,7 @@ const LEVELS = [
 const elements = {
   level: document.getElementById("level-value"),
   target: document.getElementById("target-value"),
+  targetMirror: document.getElementById("tap-target-mirror"),
   timer: document.getElementById("timer-value"),
   attempts: document.getElementById("attempt-value"),
   tapZone: document.getElementById("tap-zone"),
@@ -64,10 +65,10 @@ function getLevelBudgetMs() {
 
 function updateTapMood() {
   elements.focus.textContent = state.feverActive
-    ? "Fever mode"
+    ? "Fever"
     : state.combo >= 5
       ? `Combo x${state.combo}`
-      : "Full speed";
+      : `x${state.combo}`;
 
   elements.tapZoneText.textContent = state.feverActive
     ? "Fever: every tap hits harder"
@@ -131,6 +132,7 @@ function render() {
 
   elements.level.textContent = `${state.levelIndex + 1} / ${LEVELS.length}`;
   elements.target.textContent = `${level.target}`;
+  elements.targetMirror.textContent = `${level.target}`;
   elements.timer.textContent = formatMs(Math.max(0, state.remainingMs));
   elements.attempts.textContent = `${state.attempts}`;
   elements.tapCount.textContent = `${state.tapCount}`;
@@ -280,6 +282,10 @@ function handleTap() {
   }
 
   state.tapCount += tapGain;
+  elements.tapCount.classList.remove("metric-pop");
+  window.requestAnimationFrame(() => {
+    elements.tapCount.classList.add("metric-pop");
+  });
   render();
 
   if (state.tapCount >= LEVELS[state.levelIndex].target) {
