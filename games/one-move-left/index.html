@@ -15,7 +15,6 @@
       name="robots"
       content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     />
-    <meta name="theme-color" content="#121522" />
     <meta property="og:title" content="One Move Left | BeatTo9" />
     <meta property="og:site_name" content="BeatTo9" />
     <meta
@@ -44,194 +43,216 @@
       }
     </script>
     <link rel="stylesheet" href="../../src/styles.css" />
+    <link rel="stylesheet" href="../../src/soft-theme.css" />
     <script type="module" src="../../src/games/one-move-left.js"></script>
   </head>
-  <body class="game-page">
-    <main class="game-shell">
-      <a class="legal-back" href="../../index.html">Back to home</a>
-      <section class="game-hero">
-        <div class="game-hero-copy">
-          <p class="eyebrow">Logic prototype</p>
-          <h1>One Move Left</h1>
-          <p class="hero-text">
-            Clear the board row by row. Each level has one valid next move pattern and one mistake
-            ends the run.
-          </p>
+  <body class="soft-site play-page play-page-logic">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="soft-topbar">
+      <div class="soft-topbar-group">
+        <a class="soft-brand" href="../../index.html" aria-label="BeatTo9 home">
+          <span class="soft-brand-mark" aria-hidden="true">B9</span>
+          <span>BeatTo9</span>
+        </a>
+        <nav class="soft-nav" aria-label="Primary">
+          <a href="../../index.html">Discover</a>
+          <a class="soft-nav-active" href="./">Library</a>
+          <a href="../../leaderboards/">Leaderboards</a>
+        </nav>
+      </div>
+      <div class="soft-actions">
+        <div class="soft-search" aria-label="Search">
+          <strong>Search games...</strong>
+          <span>Find</span>
         </div>
-        <div class="game-hero-stats">
-          <div class="metric-card">
-            <span class="metric-label">Rounds</span>
-            <strong class="metric-value">9</strong>
-          </div>
-          <div class="metric-card">
-            <span class="metric-label">Current model</span>
-            <strong class="metric-value">Pattern memory</strong>
-          </div>
+        <a class="soft-icon-button" href="../../terms.html">Terms</a>
+        <a class="soft-profile-pill" href="../../leaderboards/">
+          <span class="soft-profile-avatar" aria-hidden="true">OM</span>
+          <span class="soft-profile-copy">
+            <strong>One Move Left</strong>
+            <span>Logic route</span>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main" class="soft-shell">
+      <div class="play-layout">
+        <div class="play-main-column">
+          <section class="play-heading">
+            <div class="play-heading-copy">
+              <p class="play-breadcrumb">Library / Logic</p>
+              <h1 class="play-title">One Move Left</h1>
+              <p>
+                Clear the board row by row. Each level hides only one valid next move pattern, so one
+                wrong tap ends the run and sends you back to the start.
+              </p>
+            </div>
+            <div class="play-actions">
+              <a class="soft-pill-button secondary" href="../../leaderboards/">Share Run</a>
+              <button id="logic-retry-button" class="soft-pill-button primary" type="button">Retry Run</button>
+            </div>
+          </section>
+
+          <section class="play-stage-card">
+            <div class="play-stage-media" aria-hidden="true">
+              <img src="../../assets/thumb-one-move-left.svg" alt="" loading="eager" />
+            </div>
+            <div class="play-stage-inner">
+              <div class="play-stage-topline">
+                <div class="play-stage-badges">
+                  <span class="play-meta-pill"><span class="play-meta-label">Mode</span> Sequence Logic</span>
+                  <span class="play-meta-pill"><span class="play-meta-label">Rule</span> One mistake ends it</span>
+                </div>
+                <div class="play-stage-badges">
+                  <span class="play-meta-pill"><span class="play-meta-label">Board</span> <span id="logic-board-value">3 x 3</span></span>
+                  <span class="play-meta-pill"><span class="play-meta-label">Moves</span> <span id="logic-moves-value">3</span></span>
+                </div>
+              </div>
+
+              <div class="play-stage-surface">
+                <div class="progress-track" aria-label="Level progress">
+                  <div id="logic-progress-fill" class="progress-fill"></div>
+                </div>
+
+                <div class="status-grid" aria-live="polite">
+                  <div class="status-card">
+                    <span class="metric-label">Level</span>
+                    <strong id="logic-level-value" class="metric-value">1 / 9</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Pattern type</span>
+                    <strong class="metric-value">Ordered row clear</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Attempts</span>
+                    <strong id="logic-attempt-value" class="metric-value">1</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Pressure</span>
+                    <strong class="metric-value">Perfect accuracy</strong>
+                  </div>
+                </div>
+
+                <div class="logic-board-wrap">
+                  <div id="logic-board" class="logic-board" role="group" aria-label="Puzzle board"></div>
+                </div>
+
+                <div class="run-feedback">
+                  <p id="logic-message-text" class="message-text">
+                    Clear the active row from left to right. Finish all rows to clear the level.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="play-bento">
+            <article class="play-bento-card">
+              <h2>How to Play</h2>
+              <ol class="play-step-list">
+                <li>
+                  <span class="play-step-index">1</span>
+                  <span>Read the highlighted active row before you make your first move.</span>
+                </li>
+                <li>
+                  <span class="play-step-index">2</span>
+                  <span>Clear the correct cells from left to right in the only valid order.</span>
+                </li>
+                <li>
+                  <span class="play-step-index">3</span>
+                  <span>Finish every required row to advance, because one wrong tap ends the run.</span>
+                </li>
+              </ol>
+            </article>
+
+            <article class="play-bento-card">
+              <h2>About this Game</h2>
+              <p>
+                One Move Left turns a simple board into a memory-and-order puzzle. It is the most
+                punishing BeatTo9 route for players who like exact sequencing and no-mistake tension.
+              </p>
+              <div class="play-tag-row">
+                <span class="play-tag">Logic</span>
+                <span class="play-tag">Pattern Memory</span>
+                <span class="play-tag">Single Player</span>
+              </div>
+            </article>
+          </section>
         </div>
-      </section>
 
-      <section class="game-layout">
-        <div class="game-stage-panel">
-          <div class="game-stage-head">
-            <div>
-              <span class="eyebrow">Current run</span>
-              <h2 class="game-title-small">Tap the highlighted row in order</h2>
-            </div>
-            <button id="logic-retry-button" class="button button-secondary" type="button">Retry run</button>
-          </div>
-
-          <div class="progress-track" aria-label="Level progress">
-            <div id="logic-progress-fill" class="progress-fill"></div>
-          </div>
-
-          <div class="status-grid" aria-live="polite">
-            <div class="status-card">
-              <span class="metric-label">Level</span>
-              <strong id="logic-level-value" class="metric-value">1 / 9</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Board</span>
-              <strong id="logic-board-value" class="metric-value">3 x 3</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Moves left</span>
-              <strong id="logic-moves-value" class="metric-value">3</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Attempts</span>
-              <strong id="logic-attempt-value" class="metric-value">1</strong>
-            </div>
-          </div>
-
-          <div class="logic-board-wrap">
-            <div id="logic-board" class="logic-board" role="group" aria-label="Puzzle board"></div>
-          </div>
-
-          <div class="run-feedback">
-            <p id="logic-message-text" class="message-text">
-              Clear the active row from left to right. Finish all rows to clear the level.
-            </p>
-          </div>
-        </div>
-
-        <aside class="game-side-panel">
-          <section class="side-card">
-            <p class="eyebrow">Best run</p>
-            <h2 class="side-title">Local progress</h2>
-            <div class="side-metrics">
-              <div>
+        <aside class="play-sidebar-column">
+          <section class="play-sidebar-card">
+            <h3>Run Snapshot</h3>
+            <p>Monitor your best level, fastest clear, and recent local leaderboard placements.</p>
+            <div class="play-best-grid">
+              <div class="play-best-card">
                 <span class="metric-label">Best level</span>
-                <strong id="logic-best-level-value" class="metric-value">0</strong>
+                <strong id="logic-best-level-value">0</strong>
               </div>
-              <div>
+              <div class="play-best-card">
                 <span class="metric-label">Fastest clear</span>
-                <strong id="logic-best-time-value" class="metric-value">-</strong>
+                <strong id="logic-best-time-value">-</strong>
               </div>
             </div>
-          </section>
-
-          <section class="side-card">
-            <p class="eyebrow">Gameplay notes</p>
-            <h2 class="side-title">Difficulty model</h2>
-            <ul class="card-points">
-              <li>Bigger boards in later rounds</li>
-              <li>Longer row sequences to remember</li>
-              <li>Single error ends the whole level</li>
-            </ul>
-          </section>
-
-          <section class="side-card">
-            <p class="eyebrow">Leaderboard</p>
-            <h2 class="side-title">Top local runs</h2>
             <ol id="logic-leaderboard-list" class="leaderboard-list"></ol>
           </section>
+
+          <section class="play-sidebar-card">
+            <h3>Live Chat</h3>
+            <div class="play-chat-list">
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>PatternFox</strong>
+                  <span class="play-chat-meta">12:18 PM</span>
+                </div>
+                <div class="play-chat-bubble">I always preview the whole row before touching the board.</div>
+              </div>
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>RuneLogic</strong>
+                  <span class="play-chat-meta">12:19 PM</span>
+                </div>
+                <div class="play-chat-bubble">This one feels calm until the mistake happens.</div>
+              </div>
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>You</strong>
+                  <span class="play-chat-meta">12:20 PM</span>
+                </div>
+                <div class="play-chat-bubble self">Trying to keep the full sequence in memory this run.</div>
+              </div>
+            </div>
+            <div class="play-chat-form">
+              <span>Type a message...</span>
+              <strong>Send</strong>
+            </div>
+          </section>
+
+          <section class="play-sidebar-card">
+            <h3>Friends Playing</h3>
+            <div class="play-friend-list">
+              <div class="play-friend-item">
+                <span class="play-friend-avatar" aria-hidden="true">PK</span>
+                <span class="play-friend-copy">
+                  <strong>Petra K.</strong>
+                  <span>Working on board four</span>
+                </span>
+                <a class="soft-link" href="../../leaderboards/">View</a>
+              </div>
+              <div class="play-friend-item">
+                <span class="play-friend-avatar" aria-hidden="true">DS</span>
+                <span class="play-friend-copy">
+                  <strong>Dave Smith</strong>
+                  <span>Away for 10m</span>
+                </span>
+                <a class="soft-link" href="../tap-sprint/">Switch</a>
+              </div>
+            </div>
+          </section>
         </aside>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>ABOUT ONE MOVE LEFT</h2>
-          <a href="../../index.html#all-games">More games</a>
-        </div>
-        <div class="compact-grid">
-          <article class="compact-card compact-card-logic">
-            <span class="compact-tag">How it plays</span>
-            <strong>Remember the right order</strong>
-            <span>
-              One Move Left is a logic browser game where you clear the highlighted row in sequence
-              and a single wrong move ends the run.
-            </span>
-          </article>
-          <article class="compact-card compact-card-vision">
-            <span class="compact-tag">Difficulty curve</span>
-            <strong>Bigger boards and tighter memory</strong>
-            <span>
-              Each level increases board complexity, so success depends on planning ahead and staying
-              accurate under pressure.
-            </span>
-          </article>
-          <article class="compact-card compact-card-speed">
-            <span class="compact-tag">Who it suits</span>
-            <strong>Built for puzzle players</strong>
-            <span>
-              This page fits people who like logic games, order puzzles, and games where one mistake
-              can end an otherwise strong run.
-            </span>
-          </article>
-        </div>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>HOW TO PLAY</h2>
-          <a href="#top">Top</a>
-        </div>
-        <div class="mini-strip">
-          <article class="mini-card">
-            <span class="mini-label">Step 1</span>
-            <strong>Read the active row before tapping</strong>
-          </article>
-          <article class="mini-card">
-            <span class="mini-label">Step 2</span>
-            <strong>Clear tiles from left to right in order</strong>
-          </article>
-          <article class="mini-card">
-            <span class="mini-label">Step 3</span>
-            <strong>Finish the board without a mistake</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>RELATED GAMES</h2>
-          <a href="../../index.html">Home</a>
-        </div>
-        <div class="library-grid">
-          <a class="library-card" href="../tap-sprint/">
-            <div class="library-cover tile-speed">
-              <img class="library-art" src="../../assets/thumb-tap-sprint.svg" alt="" loading="lazy" />
-              <span class="cover-sticker">FAST</span>
-              <span class="cover-glyph">GO</span>
-            </div>
-            <div class="library-copy">
-              <strong>Tap Sprint</strong>
-              <span>Reaction game</span>
-            </div>
-          </a>
-          <a class="library-card" href="../find-the-one/">
-            <div class="library-cover tile-vision">
-              <img class="library-art" src="../../assets/thumb-find-the-one.svg" alt="" loading="lazy" />
-              <span class="cover-sticker">EYE</span>
-              <span class="cover-glyph">OO</span>
-            </div>
-            <div class="library-copy">
-              <strong>Find the One</strong>
-              <span>Visual challenge</span>
-            </div>
-          </a>
-        </div>
-      </section>
+      </div>
     </main>
   </body>
 </html>

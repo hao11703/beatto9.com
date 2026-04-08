@@ -15,7 +15,6 @@
       name="robots"
       content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     />
-    <meta name="theme-color" content="#121522" />
     <meta property="og:title" content="Tap Sprint | BeatTo9" />
     <meta property="og:site_name" content="BeatTo9" />
     <meta
@@ -44,196 +43,219 @@
       }
     </script>
     <link rel="stylesheet" href="../../src/styles.css" />
+    <link rel="stylesheet" href="../../src/soft-theme.css" />
     <script type="module" src="../../src/games/tap-sprint.js"></script>
   </head>
-  <body class="game-page">
-    <main class="game-shell">
-      <a class="legal-back" href="../../index.html">Back to home</a>
-      <section class="game-hero">
-        <div class="game-hero-copy">
-          <p class="eyebrow">Speed prototype</p>
-          <h1>Tap Sprint</h1>
-          <p class="hero-text">
-            Hit the target number of taps before the timer runs out. Finish nine levels in one run
-            to beat the challenge.
-          </p>
+  <body class="soft-site play-page play-page-speed">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="soft-topbar">
+      <div class="soft-topbar-group">
+        <a class="soft-brand" href="../../index.html" aria-label="BeatTo9 home">
+          <span class="soft-brand-mark" aria-hidden="true">B9</span>
+          <span>BeatTo9</span>
+        </a>
+        <nav class="soft-nav" aria-label="Primary">
+          <a href="../../index.html">Discover</a>
+          <a class="soft-nav-active" href="./">Library</a>
+          <a href="../../leaderboards/">Leaderboards</a>
+        </nav>
+      </div>
+      <div class="soft-actions">
+        <div class="soft-search" aria-label="Search">
+          <strong>Search games...</strong>
+          <span>Find</span>
         </div>
-        <div class="game-hero-stats">
-          <div class="metric-card">
-            <span class="metric-label">Rounds</span>
-            <strong class="metric-value">9</strong>
-          </div>
-          <div class="metric-card">
-            <span class="metric-label">Current model</span>
-            <strong class="metric-value">Fast retry</strong>
-          </div>
+        <a class="soft-icon-button" href="../../terms.html">Terms</a>
+        <a class="soft-profile-pill" href="../../leaderboards/">
+          <span class="soft-profile-avatar" aria-hidden="true">TS</span>
+          <span class="soft-profile-copy">
+            <strong>Tap Sprint</strong>
+            <span>Reaction route</span>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main" class="soft-shell">
+      <div class="play-layout">
+        <div class="play-main-column">
+          <section class="play-heading">
+            <div class="play-heading-copy">
+              <p class="play-breadcrumb">Library / Reaction</p>
+              <h1 class="play-title">Tap Sprint</h1>
+              <p>
+                Hit the target tap count before the timer runs out. Finish nine levels in one run to
+                beat the challenge and push your score up the BeatTo9 rankings.
+              </p>
+            </div>
+            <div class="play-actions">
+              <a class="soft-pill-button secondary" href="../../leaderboards/">Share Run</a>
+              <button id="retry-button" class="soft-pill-button primary" type="button">Retry Run</button>
+            </div>
+          </section>
+
+          <section class="play-stage-card">
+            <div class="play-stage-media" aria-hidden="true">
+              <img src="../../assets/thumb-tap-sprint.svg" alt="" loading="eager" />
+            </div>
+            <div class="play-stage-inner">
+              <div class="play-stage-topline">
+                <div class="play-stage-badges">
+                  <span class="play-meta-pill"><span class="play-meta-label">Mode</span> Fast Retry</span>
+                  <span class="play-meta-pill"><span class="play-meta-label">Run</span> Nine Levels</span>
+                </div>
+                <div class="play-stage-badges">
+                  <span class="play-meta-pill"><span class="play-meta-label">Target</span> <span id="target-value">12</span></span>
+                  <span class="play-meta-pill"><span class="play-meta-label">Time</span> <span id="timer-value">4.8s</span></span>
+                </div>
+              </div>
+
+              <div class="play-stage-surface">
+                <div class="progress-track" aria-label="Level progress">
+                  <div id="progress-fill" class="progress-fill"></div>
+                </div>
+
+                <div class="status-grid" aria-live="polite">
+                  <div class="status-card">
+                    <span class="metric-label">Level</span>
+                    <strong id="level-value" class="metric-value">1 / 9</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Target taps</span>
+                    <strong class="metric-value" data-mirror="target">12</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Attempts</span>
+                    <strong id="attempt-value" class="metric-value">1</strong>
+                  </div>
+                  <div class="status-card">
+                    <span class="metric-label">Focus</span>
+                    <strong class="metric-value">Full speed</strong>
+                  </div>
+                </div>
+
+                <div class="tap-zone-wrap">
+                  <button id="tap-zone" class="tap-zone" type="button" aria-label="Tap to play">
+                    <span class="tap-zone-text">Tap to start the timer</span>
+                    <strong id="tap-count" class="tap-count">0</strong>
+                  </button>
+                </div>
+
+                <div class="run-feedback">
+                  <p id="message-text" class="message-text">
+                    Tap as fast as you can. The timer starts on your first tap.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="play-bento">
+            <article class="play-bento-card">
+              <h2>How to Play</h2>
+              <ol class="play-step-list">
+                <li>
+                  <span class="play-step-index">1</span>
+                  <span>Start tapping to begin the countdown and build your run immediately.</span>
+                </li>
+                <li>
+                  <span class="play-step-index">2</span>
+                  <span>Reach the target tap count for the current level before time reaches zero.</span>
+                </li>
+                <li>
+                  <span class="play-step-index">3</span>
+                  <span>Clear all nine levels in sequence to post your best full-run result.</span>
+                </li>
+              </ol>
+            </article>
+
+            <article class="play-bento-card">
+              <h2>About this Game</h2>
+              <p>
+                Tap Sprint is BeatTo9's pure reaction format. The rules stay readable, but the timer
+                and target pressure escalate quickly so each retry feels meaningful.
+              </p>
+              <div class="play-tag-row">
+                <span class="play-tag">Reaction</span>
+                <span class="play-tag">Instant Retry</span>
+                <span class="play-tag">Single Player</span>
+              </div>
+            </article>
+          </section>
         </div>
-      </section>
 
-      <section class="game-layout">
-        <div class="game-stage-panel">
-          <div class="game-stage-head">
-            <div>
-              <span class="eyebrow">Current run</span>
-              <h2 class="game-title-small">Beat all nine levels</h2>
-            </div>
-            <button id="retry-button" class="button button-secondary" type="button">Retry run</button>
-          </div>
-
-          <div class="progress-track" aria-label="Level progress">
-            <div id="progress-fill" class="progress-fill"></div>
-          </div>
-
-          <div class="status-grid" aria-live="polite">
-            <div class="status-card">
-              <span class="metric-label">Level</span>
-              <strong id="level-value" class="metric-value">1 / 9</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Target taps</span>
-              <strong id="target-value" class="metric-value">12</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Time left</span>
-              <strong id="timer-value" class="metric-value">4.8s</strong>
-            </div>
-            <div class="status-card">
-              <span class="metric-label">Attempts</span>
-              <strong id="attempt-value" class="metric-value">1</strong>
-            </div>
-          </div>
-
-          <div class="tap-zone-wrap">
-            <button id="tap-zone" class="tap-zone" type="button" aria-label="Tap to play">
-              <span class="tap-zone-text">Tap</span>
-              <strong id="tap-count" class="tap-count">0</strong>
-            </button>
-          </div>
-
-          <div class="run-feedback">
-            <p id="message-text" class="message-text">Tap as fast as you can. The timer starts on the first tap.</p>
-          </div>
-        </div>
-
-        <aside class="game-side-panel">
-          <section class="side-card">
-            <p class="eyebrow">Best run</p>
-            <h2 class="side-title">Local progress</h2>
-            <div class="side-metrics">
-              <div>
+        <aside class="play-sidebar-column">
+          <section class="play-sidebar-card">
+            <h3>Run Snapshot</h3>
+            <p>Track your best local result and compare it against recent stored runs.</p>
+            <div class="play-best-grid">
+              <div class="play-best-card">
                 <span class="metric-label">Best level</span>
-                <strong id="best-level-value" class="metric-value">0</strong>
+                <strong id="best-level-value">0</strong>
               </div>
-              <div>
+              <div class="play-best-card">
                 <span class="metric-label">Fastest clear</span>
-                <strong id="best-time-value" class="metric-value">-</strong>
+                <strong id="best-time-value">-</strong>
               </div>
             </div>
-          </section>
-
-          <section class="side-card">
-            <p class="eyebrow">Data capture</p>
-            <h2 class="side-title">Telemetry in this prototype</h2>
-            <ul class="card-points">
-              <li>Anonymous user id</li>
-              <li>Session start and finish</li>
-              <li>Level complete and fail events</li>
-              <li>Retry clicks and best-run updates</li>
-            </ul>
-          </section>
-
-          <section class="side-card">
-            <p class="eyebrow">Leaderboard</p>
-            <h2 class="side-title">Top local runs</h2>
             <ol id="leaderboard-list" class="leaderboard-list"></ol>
           </section>
+
+          <section class="play-sidebar-card">
+            <h3>Live Chat</h3>
+            <div class="play-chat-list">
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>SpeedFox</strong>
+                  <span class="play-chat-meta">12:02 PM</span>
+                </div>
+                <div class="play-chat-bubble">Level six is where my thumbs start to panic.</div>
+              </div>
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>PixelMina</strong>
+                  <span class="play-chat-meta">12:04 PM</span>
+                </div>
+                <div class="play-chat-bubble">The short runs make this way too replayable.</div>
+              </div>
+              <div class="play-chat-item">
+                <div class="play-chat-author">
+                  <strong>You</strong>
+                  <span class="play-chat-meta">12:05 PM</span>
+                </div>
+                <div class="play-chat-bubble self">Chasing a clean nine-level run right now.</div>
+              </div>
+            </div>
+            <div class="play-chat-form">
+              <span>Type a message...</span>
+              <strong>Send</strong>
+            </div>
+          </section>
+
+          <section class="play-sidebar-card">
+            <h3>Friends Playing</h3>
+            <div class="play-friend-list">
+              <div class="play-friend-item">
+                <span class="play-friend-avatar" aria-hidden="true">AR</span>
+                <span class="play-friend-copy">
+                  <strong>Alex River</strong>
+                  <span>Best tap streak today</span>
+                </span>
+                <a class="soft-link" href="../../leaderboards/">View</a>
+              </div>
+              <div class="play-friend-item">
+                <span class="play-friend-avatar" aria-hidden="true">SB</span>
+                <span class="play-friend-copy">
+                  <strong>Sarah Bloom</strong>
+                  <span>Just started a run</span>
+                </span>
+                <a class="soft-link" href="../find-the-one/">Join</a>
+              </div>
+            </div>
+          </section>
         </aside>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>ABOUT TAP SPRINT</h2>
-          <a href="../../index.html#all-games">More games</a>
-        </div>
-        <div class="compact-grid">
-          <article class="compact-card compact-card-speed">
-            <span class="compact-tag">How it plays</span>
-            <strong>Fast reaction game</strong>
-            <span>
-              Tap Sprint is a browser speed game where each round asks you to hit a target tap count
-              before the timer runs out.
-            </span>
-          </article>
-          <article class="compact-card compact-card-vision">
-            <span class="compact-tag">Why people replay</span>
-            <strong>Short runs, instant retry</strong>
-            <span>
-              Every run is short, so it works well as a quick mobile game when you want a fast score
-              chase without a long tutorial.
-            </span>
-          </article>
-          <article class="compact-card compact-card-logic">
-            <span class="compact-tag">Who it suits</span>
-            <strong>Good for reaction practice</strong>
-            <span>
-              This page is best for players who like reflex games, fast thumbs, and arcade loops with
-              simple rules.
-            </span>
-          </article>
-        </div>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>HOW TO PLAY</h2>
-          <a href="#top">Top</a>
-        </div>
-        <div class="mini-strip">
-          <article class="mini-card">
-            <span class="mini-label">Step 1</span>
-            <strong>Start tapping to begin the timer</strong>
-          </article>
-          <article class="mini-card">
-            <span class="mini-label">Step 2</span>
-            <strong>Reach the target tap count before time ends</strong>
-          </article>
-          <article class="mini-card">
-            <span class="mini-label">Step 3</span>
-            <strong>Clear all nine levels in one run</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="portal-section">
-        <div class="portal-section-head">
-          <h2>RELATED GAMES</h2>
-          <a href="../../index.html">Home</a>
-        </div>
-        <div class="library-grid">
-          <a class="library-card" href="../find-the-one/">
-            <div class="library-cover tile-vision">
-              <img class="library-art" src="../../assets/thumb-find-the-one.svg" alt="" loading="lazy" />
-              <span class="cover-sticker">EYE</span>
-              <span class="cover-glyph">OO</span>
-            </div>
-            <div class="library-copy">
-              <strong>Find the One</strong>
-              <span>Visual challenge</span>
-            </div>
-          </a>
-          <a class="library-card" href="../one-move-left/">
-            <div class="library-cover tile-logic">
-              <img class="library-art" src="../../assets/thumb-one-move-left.svg" alt="" loading="lazy" />
-              <span class="cover-sticker">BRAIN</span>
-              <span class="cover-glyph">IQ</span>
-            </div>
-            <div class="library-copy">
-              <strong>One Move Left</strong>
-              <span>Logic puzzle</span>
-            </div>
-          </a>
-        </div>
-      </section>
+      </div>
     </main>
   </body>
 </html>
