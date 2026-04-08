@@ -1536,6 +1536,23 @@ body.soft-site .game-page {
     gap: 0.35rem;
   }
 
+  .play-page .play-main-column {
+    gap: 0.85rem;
+  }
+
+  .play-page .play-stage-card {
+    order: 1;
+  }
+
+  .play-page .play-heading {
+    order: 2;
+    gap: 0.7rem;
+  }
+
+  .play-page .play-bento {
+    order: 3;
+  }
+
   .soft-nav a,
   .soft-icon-button,
   .soft-pill-button {
@@ -1576,6 +1593,16 @@ body.soft-site .game-page {
     padding: 0.85rem;
   }
 
+  .play-page .vision-grid-wrap,
+  .play-page .logic-board-wrap,
+  .play-page .tap-zone-wrap {
+    order: 2;
+  }
+
+  .play-page .run-feedback {
+    order: 3;
+  }
+
   .play-page .tap-zone {
     min-height: min(27vh, 220px);
   }
@@ -1583,6 +1610,7 @@ body.soft-site .game-page {
   .play-page .status-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.7rem;
+    order: 4;
   }
 
   .play-bento {
@@ -1631,6 +1659,12 @@ body.soft-site .game-page {
     font-size: clamp(2.1rem, 11vw, 3.2rem);
   }
 
+  .play-page .play-heading-copy p {
+    font-size: 0.9rem;
+    line-height: 1.35;
+    max-width: 32ch;
+  }
+
   .leaderboards-main {
     padding: 1.25rem 1rem 3rem;
   }
@@ -1670,8 +1704,7 @@ body.soft-site .game-page {
   }
 
   .play-page .play-heading-copy p {
-    font-size: 0.92rem;
-    line-height: 1.38;
+    display: none;
   }
 
   .play-page .play-stage-topline {
