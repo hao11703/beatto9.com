@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+    />
+    <title>Tap Sprint | BeatTo9</title>
+    <meta
+      name="description"
+      content="Tap Sprint is a nine-level speed challenge built for instant retries on mobile web."
+    />
+    <meta name="theme-color" content="#121522" />
+    <meta property="og:title" content="Tap Sprint | BeatTo9" />
+    <meta
+      property="og:description"
+      content="Can you beat all nine levels before the timer hits zero?"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://beatto9.com/games/tap-sprint/" />
+    <link rel="canonical" href="https://beatto9.com/games/tap-sprint/" />
+    <link rel="stylesheet" href="../../src/styles.css" />
+    <script type="module" src="../../src/games/tap-sprint.js"></script>
+  </head>
+  <body class="game-page">
+    <main class="game-shell">
+      <a class="legal-back" href="../../index.html">Back to home</a>
+      <section class="game-hero">
+        <div class="game-hero-copy">
+          <p class="eyebrow">Speed prototype</p>
+          <h1>Tap Sprint</h1>
+          <p class="hero-text">
+            Hit the target number of taps before the timer runs out. Finish nine levels in one run
+            to beat the challenge.
+          </p>
+        </div>
+        <div class="game-hero-stats">
+          <div class="metric-card">
+            <span class="metric-label">Rounds</span>
+            <strong class="metric-value">9</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Current model</span>
+            <strong class="metric-value">Fast retry</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <div class="game-stage-panel">
+          <div class="game-stage-head">
+            <div>
+              <span class="eyebrow">Current run</span>
+              <h2 class="game-title-small">Beat all nine levels</h2>
+            </div>
+            <button id="retry-button" class="button button-secondary" type="button">Retry run</button>
+          </div>
+
+          <div class="progress-track" aria-label="Level progress">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+
+          <div class="status-grid" aria-live="polite">
+            <div class="status-card">
+              <span class="metric-label">Level</span>
+              <strong id="level-value" class="metric-value">1 / 9</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Target taps</span>
+              <strong id="target-value" class="metric-value">12</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Time left</span>
+              <strong id="timer-value" class="metric-value">4.8s</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Attempts</span>
+              <strong id="attempt-value" class="metric-value">1</strong>
+            </div>
+          </div>
+
+          <div class="tap-zone-wrap">
+            <button id="tap-zone" class="tap-zone" type="button" aria-label="Tap to play">
+              <span class="tap-zone-text">Tap</span>
+              <strong id="tap-count" class="tap-count">0</strong>
+            </button>
+          </div>
+
+          <div class="run-feedback">
+            <p id="message-text" class="message-text">Tap as fast as you can. The timer starts on the first tap.</p>
+          </div>
+        </div>
+
+        <aside class="game-side-panel">
+          <section class="side-card">
+            <p class="eyebrow">Best run</p>
+            <h2 class="side-title">Local progress</h2>
+            <div class="side-metrics">
+              <div>
+                <span class="metric-label">Best level</span>
+                <strong id="best-level-value" class="metric-value">0</strong>
+              </div>
+              <div>
+                <span class="metric-label">Fastest clear</span>
+                <strong id="best-time-value" class="metric-value">-</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="side-card">
+            <p class="eyebrow">Data capture</p>
+            <h2 class="side-title">Telemetry in this prototype</h2>
+            <ul class="card-points">
+              <li>Anonymous user id</li>
+              <li>Session start and finish</li>
+              <li>Level complete and fail events</li>
+              <li>Retry clicks and best-run updates</li>
+            </ul>
+          </section>
+
+          <section class="side-card">
+            <p class="eyebrow">Leaderboard</p>
+            <h2 class="side-title">Top local runs</h2>
+            <ol id="leaderboard-list" class="leaderboard-list"></ol>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

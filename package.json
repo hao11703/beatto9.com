@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "cf:whoami": "HOME=/tmp wrangler whoami",
+    "cf:d1:create": "HOME=/tmp wrangler d1 create beatto9",
+    "cf:d1:apply": "HOME=/tmp wrangler d1 execute beatto9 --file=db/schema.sql",
+    "cf:deploy": "HOME=/tmp wrangler pages deploy .",
+    "cf:dev": "HOME=/tmp wrangler pages dev ."
+  },
+  "devDependencies": {
+    "wrangler": "^4.76.0"
+  }
+}

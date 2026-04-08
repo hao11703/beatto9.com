@@ -1,0 +1,32 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" fill="#24133F"/>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <g opacity="0.15">
+    <path d="M0 40H640" stroke="#FFF3C4" stroke-width="8" stroke-dasharray="8 16"/>
+    <path d="M0 120H640" stroke="#FFF3C4" stroke-width="8" stroke-dasharray="8 16"/>
+    <path d="M0 200H640" stroke="#FFF3C4" stroke-width="8" stroke-dasharray="8 16"/>
+    <path d="M0 280H640" stroke="#FFF3C4" stroke-width="8" stroke-dasharray="8 16"/>
+  </g>
+  <rect x="30" y="24" width="134" height="42" fill="#17112B"/>
+  <rect x="36" y="30" width="122" height="30" fill="#FFE066"/>
+  <text x="97" y="50" text-anchor="middle" fill="#17112B" font-family="Courier New, monospace" font-size="20" font-weight="700">HOT PICK</text>
+  <rect x="60" y="88" width="250" height="140" rx="16" fill="#FF4F64"/>
+  <rect x="80" y="108" width="210" height="100" rx="12" fill="#17112B"/>
+  <rect x="110" y="126" width="150" height="64" rx="10" fill="#00E5A8"/>
+  <circle cx="185" cy="158" r="24" fill="#17112B"/>
+  <path d="M193 138C195.5 133.5 202 133.5 204.5 138L221.8 168C224.3 172.5 221.1 178 216 178H181.5C176.4 178 173.2 172.5 175.7 168L193 138Z" fill="#FFE066"/>
+  <rect x="348" y="76" width="238" height="42" fill="#17112B"/>
+  <rect x="354" y="82" width="226" height="30" fill="#FFF3C4"/>
+  <text x="467" y="102" text-anchor="middle" fill="#17112B" font-family="Courier New, monospace" font-size="18" font-weight="700">TAP SPRINT</text>
+  <text x="348" y="164" fill="#FFF7D6" font-family="Courier New, monospace" font-size="52" font-weight="700">99%</text>
+  <text x="348" y="206" fill="#FFF7D6" font-family="Courier New, monospace" font-size="24">REACH LEVEL 9</text>
+  <rect x="344" y="238" width="200" height="26" fill="#17112B"/>
+  <rect x="350" y="244" width="120" height="14" fill="#FFE066"/>
+  <text x="350" y="324" fill="#FFF7D6" font-family="Courier New, monospace" font-size="20">FAST THUMBS ONLY</text>
+  <defs>
+    <linearGradient id="bg" x1="77.5" y1="27.5" x2="528.5" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7A48"/>
+      <stop offset="1" stop-color="#FF4F64"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,36 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" fill="#12394D"/>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect x="28" y="24" width="152" height="42" fill="#17112B"/>
+  <rect x="34" y="30" width="140" height="30" fill="#C7FFF2"/>
+  <text x="104" y="50" text-anchor="middle" fill="#12394D" font-family="Courier New, monospace" font-size="20" font-weight="700">TRENDING</text>
+  <g transform="translate(60 86)">
+    <rect width="240" height="188" rx="16" fill="#17112B"/>
+    <g transform="translate(24 22)">
+      <rect width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect x="56" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect x="112" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect y="56" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect x="56" y="56" width="48" height="48" rx="8" fill="#78E7D3"/>
+      <rect x="112" y="56" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect y="112" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect x="56" y="112" width="48" height="48" rx="8" fill="#D9FFF7"/>
+      <rect x="112" y="112" width="48" height="48" rx="8" fill="#D9FFF7"/>
+    </g>
+  </g>
+  <rect x="356" y="74" width="240" height="42" fill="#17112B"/>
+  <rect x="362" y="80" width="228" height="30" fill="#D9FFF7"/>
+  <text x="476" y="100" text-anchor="middle" fill="#12394D" font-family="Courier New, monospace" font-size="16" font-weight="700">FIND THE ONE</text>
+  <text x="356" y="164" fill="#EFFFFB" font-family="Courier New, monospace" font-size="50" font-weight="700">1 TILE</text>
+  <text x="356" y="204" fill="#EFFFFB" font-family="Courier New, monospace" font-size="24">IS DIFFERENT</text>
+  <circle cx="530" cy="244" r="44" fill="#17112B"/>
+  <circle cx="530" cy="244" r="22" fill="#D9FFF7"/>
+  <circle cx="530" cy="244" r="10" fill="#17112B"/>
+  <text x="356" y="322" fill="#EFFFFB" font-family="Courier New, monospace" font-size="20">SPOT IT BEFORE PANIC</text>
+  <defs>
+    <linearGradient id="bg" x1="64" y1="24" x2="588" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00A6A6"/>
+      <stop offset="1" stop-color="#146C94"/>
+    </linearGradient>
+  </defs>
+</svg>

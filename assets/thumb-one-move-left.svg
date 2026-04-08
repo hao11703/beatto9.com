@@ -1,0 +1,36 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" fill="#17112B"/>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <rect x="26" y="22" width="132" height="42" fill="#17112B"/>
+  <rect x="32" y="28" width="120" height="30" fill="#FFE066"/>
+  <text x="92" y="48" text-anchor="middle" fill="#17112B" font-family="Courier New, monospace" font-size="20" font-weight="700">HARD</text>
+  <g transform="translate(52 84)">
+    <rect width="252" height="188" rx="16" fill="#17112B"/>
+    <g transform="translate(28 22)">
+      <rect width="42" height="42" fill="#FFE066"/>
+      <rect x="50" width="42" height="42" fill="#FFE066"/>
+      <rect x="100" width="42" height="42" fill="#FFE066"/>
+      <rect y="50" width="42" height="42" fill="#FFE066"/>
+      <rect x="50" y="50" width="42" height="42" fill="#FF4F64"/>
+      <rect x="100" y="50" width="42" height="42" fill="#FFE066"/>
+      <rect y="100" width="42" height="42" fill="#FFE066"/>
+      <rect x="50" y="100" width="42" height="42" fill="#FFE066"/>
+      <rect x="100" y="100" width="42" height="42" fill="#FFE066"/>
+      <path d="M174 8H190V58H240V74H190V124H174V74H124V58H174V8Z" fill="#8C80FF"/>
+    </g>
+  </g>
+  <rect x="348" y="74" width="248" height="42" fill="#17112B"/>
+  <rect x="354" y="80" width="236" height="30" fill="#F2ECFF"/>
+  <text x="472" y="100" text-anchor="middle" fill="#2D1F52" font-family="Courier New, monospace" font-size="16" font-weight="700">ONE MOVE LEFT</text>
+  <text x="348" y="166" fill="#F7F2FF" font-family="Courier New, monospace" font-size="46" font-weight="700">1 WRONG</text>
+  <text x="348" y="206" fill="#F7F2FF" font-family="Courier New, monospace" font-size="24">MOVE ENDS IT</text>
+  <rect x="348" y="238" width="180" height="26" fill="#17112B"/>
+  <rect x="354" y="244" width="96" height="14" fill="#8C80FF"/>
+  <text x="348" y="322" fill="#F7F2FF" font-family="Courier New, monospace" font-size="20">PURE PATTERN TRAP</text>
+  <defs>
+    <linearGradient id="bg" x1="92" y1="22" x2="560" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B4BFF"/>
+      <stop offset="1" stop-color="#2D1F52"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
+    />
+    <title>One Move Left | BeatTo9</title>
+    <meta
+      name="description"
+      content="One Move Left is a nine-level logic game where one wrong move ends the run."
+    />
+    <meta name="theme-color" content="#121522" />
+    <meta property="og:title" content="One Move Left | BeatTo9" />
+    <meta
+      property="og:description"
+      content="Clear every row in order. One mistake ends the run."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://beatto9.com/games/one-move-left/" />
+    <link rel="canonical" href="https://beatto9.com/games/one-move-left/" />
+    <link rel="stylesheet" href="../../src/styles.css" />
+    <script type="module" src="../../src/games/one-move-left.js"></script>
+  </head>
+  <body class="game-page">
+    <main class="game-shell">
+      <a class="legal-back" href="../../index.html">Back to home</a>
+      <section class="game-hero">
+        <div class="game-hero-copy">
+          <p class="eyebrow">Logic prototype</p>
+          <h1>One Move Left</h1>
+          <p class="hero-text">
+            Clear the board row by row. Each level has one valid next move pattern and one mistake
+            ends the run.
+          </p>
+        </div>
+        <div class="game-hero-stats">
+          <div class="metric-card">
+            <span class="metric-label">Rounds</span>
+            <strong class="metric-value">9</strong>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Current model</span>
+            <strong class="metric-value">Pattern memory</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <div class="game-stage-panel">
+          <div class="game-stage-head">
+            <div>
+              <span class="eyebrow">Current run</span>
+              <h2 class="game-title-small">Tap the highlighted row in order</h2>
+            </div>
+            <button id="logic-retry-button" class="button button-secondary" type="button">Retry run</button>
+          </div>
+
+          <div class="progress-track" aria-label="Level progress">
+            <div id="logic-progress-fill" class="progress-fill"></div>
+          </div>
+
+          <div class="status-grid" aria-live="polite">
+            <div class="status-card">
+              <span class="metric-label">Level</span>
+              <strong id="logic-level-value" class="metric-value">1 / 9</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Board</span>
+              <strong id="logic-board-value" class="metric-value">3 x 3</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Moves left</span>
+              <strong id="logic-moves-value" class="metric-value">3</strong>
+            </div>
+            <div class="status-card">
+              <span class="metric-label">Attempts</span>
+              <strong id="logic-attempt-value" class="metric-value">1</strong>
+            </div>
+          </div>
+
+          <div class="logic-board-wrap">
+            <div id="logic-board" class="logic-board" role="group" aria-label="Puzzle board"></div>
+          </div>
+
+          <div class="run-feedback">
+            <p id="logic-message-text" class="message-text">
+              Clear the active row from left to right. Finish all rows to clear the level.
+            </p>
+          </div>
+        </div>
+
+        <aside class="game-side-panel">
+          <section class="side-card">
+            <p class="eyebrow">Best run</p>
+            <h2 class="side-title">Local progress</h2>
+            <div class="side-metrics">
+              <div>
+                <span class="metric-label">Best level</span>
+                <strong id="logic-best-level-value" class="metric-value">0</strong>
+              </div>
+              <div>
+                <span class="metric-label">Fastest clear</span>
+                <strong id="logic-best-time-value" class="metric-value">-</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="side-card">
+            <p class="eyebrow">Gameplay notes</p>
+            <h2 class="side-title">Difficulty model</h2>
+            <ul class="card-points">
+              <li>Bigger boards in later rounds</li>
+              <li>Longer row sequences to remember</li>
+              <li>Single error ends the whole level</li>
+            </ul>
+          </section>
+
+          <section class="side-card">
+            <p class="eyebrow">Leaderboard</p>
+            <h2 class="side-title">Top local runs</h2>
+            <ol id="logic-leaderboard-list" class="leaderboard-list"></ol>
+          </section>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
