@@ -1706,6 +1706,14 @@ body.soft-site .game-page {
     font-size: 0.92rem;
   }
 
+  .play-page .play-main-column {
+    gap: 0.55rem;
+  }
+
+  .play-page .play-heading {
+    display: none;
+  }
+
   .play-page .play-stage-card,
   .play-page .play-bento-card,
   .play-page .play-sidebar-card {
@@ -1719,55 +1727,82 @@ body.soft-site .game-page {
   }
 
   .play-page .tap-zone {
-    min-height: 11rem;
-  }
-
-  .play-page .play-heading {
-    gap: 0.6rem;
-  }
-
-  .play-page .play-heading-copy p {
-    display: none;
+    min-height: 9.5rem;
   }
 
   .play-page .play-stage-topline {
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .play-page .play-stage-badges {
-    gap: 0.45rem;
+    gap: 0.3rem;
   }
 
   .play-page .play-meta-pill {
     flex: 1 1 calc(50% - 0.45rem);
     justify-content: center;
     min-width: 0;
-    padding: 0.46rem 0.65rem;
-    font-size: 0.88rem;
+    padding: 0.34rem 0.42rem;
+    font-size: 0.76rem;
+    line-height: 1.02;
   }
 
   .play-page .status-card,
   .play-page .side-card {
-    padding: 0.62rem;
-    border-radius: 0.9rem;
+    padding: 0.48rem;
+    border-radius: 0.72rem;
   }
 
   .play-page .status-grid {
-    gap: 0.4rem;
+    gap: 0.28rem;
   }
 
   .play-page .metric-value {
-    font-size: 0.9rem;
+    font-size: 0.78rem;
   }
 
   .play-page .metric-label {
-    font-size: 0.62rem;
+    font-size: 0.54rem;
+  }
+
+  .play-page .play-meta-pill .play-meta-label {
+    font-size: 0.5rem;
   }
 
   .play-page .vision-grid,
   .play-page .logic-board {
-    gap: 0.38rem;
-    max-width: min(100%, 17.5rem);
+    gap: 0.24rem;
+    max-width: min(100%, 14.5rem);
+  }
+
+  .play-page .vision-cell,
+  .play-page .logic-cell {
+    border-radius: 8px;
+  }
+
+  .play-page .progress-track {
+    height: 0.56rem;
+    margin: 0.25rem 0;
+  }
+
+  .play-page .vision-grid-wrap,
+  .play-page .logic-board-wrap,
+  .play-page .tap-zone-wrap {
+    padding: 0.14rem 0 0;
+  }
+
+  .play-page .run-feedback {
+    min-height: 1.7rem;
+  }
+
+  .play-page .message-text {
+    font-size: 0.72rem;
+    line-height: 1.18;
+  }
+
+  .play-page .play-bento,
+  .play-page .play-sidebar-column {
+    display: none;
   }
 }
 
@@ -1793,16 +1828,5 @@ body.soft-site .game-page {
   .discover-hero-copy h1,
   .play-title {
     font-size: 2rem;
-  }
-
-  .play-stage-card,
-  .play-bento-card,
-  .play-sidebar-card {
-    padding: 1rem;
-    border-radius: 1.5rem;
-  }
-
-  .play-page .tap-zone {
-    min-height: 11rem;
   }
 }
