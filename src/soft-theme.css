@@ -1480,6 +1480,31 @@ body.soft-site .game-page {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .play-page .soft-topbar,
+  .play-page .soft-topbar-group {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .play-page .soft-topbar {
+    gap: 0.85rem;
+  }
+
+  .play-page .soft-topbar-group {
+    gap: 0.85rem;
+  }
+
+  .play-page .soft-actions {
+    display: none;
+  }
+
+  .play-page .soft-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .leaderboard-rank-card {
     grid-template-columns: 1fr;
     text-align: left;
@@ -1501,6 +1526,14 @@ body.soft-site .game-page {
 
   .soft-topbar-group {
     gap: 0.9rem;
+  }
+
+  .play-page .soft-topbar {
+    padding: 0.65rem 0;
+  }
+
+  .play-page .soft-nav {
+    gap: 0.35rem;
   }
 
   .soft-nav a,
@@ -1539,19 +1572,63 @@ body.soft-site .game-page {
 
   .play-stage-surface {
     min-height: auto;
-    padding: 1rem;
+    gap: 0.8rem;
+    padding: 0.85rem;
   }
 
   .play-page .tap-zone {
-    min-height: min(40vh, 320px);
+    min-height: min(27vh, 220px);
   }
 
   .play-page .status-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
   }
 
   .play-bento {
     gap: 1rem;
+  }
+
+  .play-page .play-stage-topline {
+    gap: 0.55rem;
+  }
+
+  .play-page .play-stage-badges {
+    gap: 0.5rem;
+  }
+
+  .play-page .play-meta-pill {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.92rem;
+  }
+
+  .play-page .play-meta-pill .play-meta-label {
+    font-size: 0.64rem;
+  }
+
+  .play-page .status-card,
+  .play-page .side-card {
+    padding: 0.9rem;
+    border-radius: 1.25rem;
+  }
+
+  .play-page .metric-label {
+    font-size: 0.7rem;
+  }
+
+  .play-page .metric-value {
+    font-size: 1rem;
+    line-height: 1.05;
+  }
+
+  .play-page .tap-zone-text,
+  .play-page .message-text {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .play-page .tap-count {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
   }
 
   .leaderboards-main {
@@ -1560,6 +1637,75 @@ body.soft-site .game-page {
 
   .leaderboards-sidebar {
     padding: 1.25rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .play-page .soft-shell {
+    width: min(calc(100% - 0.75rem), var(--soft-content));
+  }
+
+  .play-page .soft-nav a {
+    padding: 0.55rem 0.72rem;
+    font-size: 0.92rem;
+  }
+
+  .play-page .play-stage-card,
+  .play-page .play-bento-card,
+  .play-page .play-sidebar-card {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .play-page .play-stage-surface {
+    padding: 0.75rem;
+  }
+
+  .play-page .tap-zone {
+    min-height: 11rem;
+  }
+
+  .play-page .play-heading {
+    gap: 0.6rem;
+  }
+
+  .play-page .play-heading-copy p {
+    font-size: 0.92rem;
+    line-height: 1.38;
+  }
+
+  .play-page .play-stage-topline {
+    gap: 0.5rem;
+  }
+
+  .play-page .play-stage-badges {
+    gap: 0.45rem;
+  }
+
+  .play-page .play-meta-pill {
+    flex: 1 1 calc(50% - 0.45rem);
+    justify-content: center;
+    min-width: 0;
+    padding: 0.46rem 0.65rem;
+    font-size: 0.88rem;
+  }
+
+  .play-page .status-card,
+  .play-page .side-card {
+    padding: 0.78rem;
+    border-radius: 1.05rem;
+  }
+
+  .play-page .status-grid {
+    gap: 0.55rem;
+  }
+
+  .play-page .metric-value {
+    font-size: 0.96rem;
+  }
+
+  .play-page .metric-label {
+    font-size: 0.68rem;
   }
 }
 
@@ -1595,6 +1741,6 @@ body.soft-site .game-page {
   }
 
   .play-page .tap-zone {
-    min-height: 15rem;
+    min-height: 11rem;
   }
 }
