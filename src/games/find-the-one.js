@@ -35,6 +35,7 @@ const elements = {
   bestLevel: document.getElementById("vision-best-level-value"),
   bestTime: document.getElementById("vision-best-time-value"),
   leaderboardList: document.getElementById("vision-leaderboard-list"),
+  pattern: document.getElementById("vision-pattern-value"),
 };
 
 const state = {
@@ -47,7 +48,22 @@ const state = {
   totalRunTimeMs: 0,
   targetIndex: -1,
   locked: false,
+  streak: 0,
+  nextLevelBonusMs: 0,
+  distractorTimeoutId: null,
+  distractorResetId: null,
 };
+
+function getLevelTimeMs() {
+  return LEVELS[state.levelIndex].timeMs + state.nextLevelBonusMs;
+}
+
+function clearDistractorTimers() {
+  window.clearTimeout(state.distractorTimeoutId);
+  window.clearTimeout(state.distractorResetId);
+  state.distractorTimeoutId = null;
+  state.distractorResetId = null;
+}
 
 function formatMs(ms) {
   return `${(ms / 1000).toFixed(1)}s`;
@@ -108,11 +124,18 @@ function render() {
   elements.timer.textContent = formatMs(Math.max(0, state.remainingMs));
   elements.attempts.textContent = `${state.attempts}`;
   elements.progressFill.style.width = `${(state.levelIndex / LEVELS.length) * 100}%`;
+  elements.pattern.textContent =
+    state.levelIndex >= 6
+      ? "Decoys may flash"
+      : state.streak >= 2
+        ? "Streak bonus active"
+        : "One tile differs";
 }
 
 function stopTimer() {
   window.clearInterval(state.timerId);
   state.timerId = null;
+  clearDistractorTimers();
 }
 
 async function finishRun(success) {
@@ -127,6 +150,8 @@ async function finishRun(success) {
   });
 
   if (!success) {
+    state.streak = 0;
+    state.nextLevelBonusMs = 0;
     return;
   }
 
@@ -158,6 +183,8 @@ async function finishRun(success) {
 function failLevel() {
   stopTimer();
   state.locked = true;
+  state.streak = 0;
+  state.nextLevelBonusMs = 0;
 
   const previous = getFindTheOneBest();
   saveFindTheOneBest({
@@ -177,13 +204,14 @@ function startTimer() {
   state.levelStartAt = Date.now();
   emitEvent("level_start", {
     size: LEVELS[state.levelIndex].size,
-    timeMs: LEVELS[state.levelIndex].timeMs,
+    timeMs: getLevelTimeMs(),
     targetIndex: state.targetIndex,
+    streak: state.streak,
   });
 
   state.timerId = window.setInterval(() => {
     const elapsed = Date.now() - state.levelStartAt;
-    state.remainingMs = LEVELS[state.levelIndex].timeMs - elapsed;
+    state.remainingMs = getLevelTimeMs() - elapsed;
 
     if (state.remainingMs <= 0) {
       state.remainingMs = 0;
@@ -201,6 +229,10 @@ function createCell(index, palette) {
   button.type = "button";
   button.className = "vision-cell";
   button.style.background = index === state.targetIndex ? palette.different : palette.base;
+  if (state.levelIndex >= 4) {
+    button.classList.add("vision-cell-noisy");
+    button.style.setProperty("--vision-tilt", `${(Math.random() - 0.5) * 3}deg`);
+  }
   button.setAttribute("aria-label", `Tile ${index + 1}`);
 
   button.addEventListener("click", async () => {
@@ -218,6 +250,7 @@ function createCell(index, palette) {
     const duration = Date.now() - state.levelStartAt;
     state.totalRunTimeMs += duration;
     emitEvent("level_complete", { durationMs: duration });
+    state.streak += 1;
 
     stopTimer();
 
@@ -226,10 +259,15 @@ function createCell(index, palette) {
       return;
     }
 
+    state.nextLevelBonusMs = state.streak > 0 && state.streak % 2 === 0 ? 600 : 0;
     state.levelIndex += 1;
-    state.remainingMs = LEVELS[state.levelIndex].timeMs;
+    state.remainingMs = LEVELS[state.levelIndex].timeMs + state.nextLevelBonusMs;
     state.locked = false;
-    setMessage(`Nice. Level ${state.levelIndex + 1} is live.`);
+    setMessage(
+      state.nextLevelBonusMs > 0
+        ? `Nice streak. Level ${state.levelIndex + 1} starts with +0.6s bonus time.`
+        : `Nice. Level ${state.levelIndex + 1} is live.`,
+    );
     mountLevel();
   });
 
@@ -242,6 +280,7 @@ function mountLevel() {
   const palette = createPalette(level.delta);
 
   state.targetIndex = Math.floor(Math.random() * totalCells);
+  state.remainingMs = getLevelTimeMs();
   elements.grid.innerHTML = "";
   elements.grid.style.setProperty("--grid-columns", `${level.size}`);
 
@@ -250,6 +289,19 @@ function mountLevel() {
   }
 
   state.locked = false;
+  if (state.levelIndex >= 6) {
+    const wrongCells = [...elements.grid.children].filter((_, index) => index !== state.targetIndex);
+    const decoy = wrongCells[Math.floor(Math.random() * wrongCells.length)];
+    state.distractorTimeoutId = window.setTimeout(() => {
+      if (!decoy || state.locked || state.timerId === null) {
+        return;
+      }
+      decoy.classList.add("vision-cell-decoy");
+      state.distractorResetId = window.setTimeout(() => {
+        decoy.classList.remove("vision-cell-decoy");
+      }, 180);
+    }, 650);
+  }
   render();
   startTimer();
 }
@@ -272,6 +324,8 @@ async function resetRun() {
   state.attempts += 1;
   state.totalRunTimeMs = 0;
   state.locked = false;
+  state.streak = 0;
+  state.nextLevelBonusMs = 0;
   emitEvent("retry_click", { attempts: state.attempts });
   emitEvent("session_start", { source: "retry", anonymousUserId: getAnonymousUserId() });
   setMessage("Fresh run started. Find the different tile before time runs out.");

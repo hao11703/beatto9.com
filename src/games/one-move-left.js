@@ -11,15 +11,15 @@ import { getLeaderboard, submitLeaderboardEntry } from "../lib/leaderboard.js";
 const GAME_ID = "one-move-left";
 const STORAGE_KEY = "beatto9.oneMoveLeftBest";
 const LEVELS = [
-  { size: 3, rows: 2 },
-  { size: 3, rows: 3 },
-  { size: 4, rows: 2 },
-  { size: 4, rows: 3 },
-  { size: 4, rows: 4 },
-  { size: 5, rows: 3 },
-  { size: 5, rows: 4 },
-  { size: 5, rows: 5 },
-  { size: 6, rows: 5 },
+  { size: 3, rows: 2, pattern: "row" },
+  { size: 3, rows: 3, pattern: "reverse" },
+  { size: 4, rows: 2, pattern: "snake" },
+  { size: 4, rows: 3, pattern: "reverse" },
+  { size: 4, rows: 4, pattern: "snake" },
+  { size: 5, rows: 3, pattern: "column" },
+  { size: 5, rows: 4, pattern: "reverse" },
+  { size: 5, rows: 5, pattern: "snake" },
+  { size: 6, rows: 5, pattern: "column" },
 ];
 
 const elements = {
@@ -34,6 +34,7 @@ const elements = {
   bestLevel: document.getElementById("logic-best-level-value"),
   bestTime: document.getElementById("logic-best-time-value"),
   leaderboardList: document.getElementById("logic-leaderboard-list"),
+  pattern: document.getElementById("logic-pattern-value"),
 };
 
 const state = {
@@ -46,6 +47,19 @@ const state = {
   nextMoveIndex: 0,
   locked: false,
 };
+
+function getPatternLabel(pattern) {
+  switch (pattern) {
+    case "reverse":
+      return "Reverse rows";
+    case "snake":
+      return "Snake path";
+    case "column":
+      return "Column climb";
+    default:
+      return "Ordered row clear";
+  }
+}
 
 function readBest() {
   try {
@@ -115,21 +129,41 @@ function renderStatus() {
   elements.moves.textContent = `${state.sequence.length - state.nextMoveIndex}`;
   elements.attempts.textContent = `${state.attempts}`;
   elements.progressFill.style.width = `${(state.levelIndex / LEVELS.length) * 100}%`;
+  elements.pattern.textContent = getPatternLabel(level.pattern);
 }
 
 function buildSequence(level) {
-  const rows = [];
+  const sequence = [];
+
+  if (level.pattern === "column") {
+    for (let x = 0; x < level.size; x += 1) {
+      for (let y = 0; y < level.rows; y += 1) {
+        sequence.push(`${x}:${y}`);
+      }
+    }
+    return sequence;
+  }
+
   for (let row = 0; row < level.rows; row += 1) {
     const y = row;
+    const rowCells = [];
     for (let x = 0; x < level.size; x += 1) {
-      rows.push(`${x}:${y}`);
+      rowCells.push(`${x}:${y}`);
     }
+
+    if (level.pattern === "reverse" || (level.pattern === "snake" && row % 2 === 1)) {
+      rowCells.reverse();
+    }
+
+    sequence.push(...rowCells);
   }
-  return rows;
+
+  return sequence;
 }
 
-function finishFailure() {
+function finishFailure(wrongKey) {
   state.locked = true;
+  elements.board.classList.add("logic-board-fail");
   const previous = readBest();
   writeBest({
     bestLevel: Math.max(previous.bestLevel, state.levelIndex),
@@ -138,8 +172,14 @@ function finishFailure() {
   updateBestDisplay();
   emitEvent("level_fail", {
     expectedMove: state.sequence[state.nextMoveIndex],
+    wrongMove: wrongKey,
   });
-  setMessage(`Wrong move. Level ${state.levelIndex + 1} failed. Retry to start over.`);
+
+  const expectedCell = elements.board.querySelector(`[data-key="${state.sequence[state.nextMoveIndex]}"]`);
+  const wrongCell = wrongKey ? elements.board.querySelector(`[data-key="${wrongKey}"]`) : null;
+  expectedCell?.classList.add("logic-cell-expected");
+  wrongCell?.classList.add("logic-cell-wrong");
+  setMessage(`Wrong move. Follow the ${getPatternLabel(LEVELS[state.levelIndex].pattern).toLowerCase()} path.`);
 }
 
 async function finishRun(success) {
@@ -181,6 +221,7 @@ async function finishRun(success) {
 async function completeLevel() {
   const duration = Date.now() - state.levelStartAt;
   state.totalRunTimeMs += duration;
+  elements.board.classList.add("logic-board-success");
   emitEvent("level_complete", {
     durationMs: duration,
     moveCount: state.sequence.length,
@@ -194,7 +235,7 @@ async function completeLevel() {
   state.levelIndex += 1;
   state.nextMoveIndex = 0;
   state.locked = false;
-  setMessage(`Level cleared. Level ${state.levelIndex + 1} is ready.`);
+  setMessage(`Level cleared. Level ${state.levelIndex + 1} uses ${getPatternLabel(LEVELS[state.levelIndex].pattern).toLowerCase()}.`);
   mountLevel();
 }
 
@@ -205,13 +246,14 @@ function handleCellClick(key) {
 
   const expected = state.sequence[state.nextMoveIndex];
   if (key !== expected) {
-    finishFailure();
+    finishFailure(key);
     return;
   }
 
   const cell = elements.board.querySelector(`[data-key="${key}"]`);
   if (cell) {
     cell.classList.add("logic-cell-cleared");
+    cell.classList.add("logic-cell-hit");
   }
 
   state.nextMoveIndex += 1;
@@ -226,12 +268,12 @@ function handleCellClick(key) {
   }
 }
 
-function createCell(x, y, activeRows) {
+function createCell(x, y, activeCells) {
   const key = `${x}:${y}`;
   const button = document.createElement("button");
   button.type = "button";
   button.className = "logic-cell";
-  if (activeRows.has(y)) {
+  if (activeCells.has(key)) {
     button.classList.add("logic-cell-active");
   }
   button.dataset.key = key;
@@ -242,21 +284,18 @@ function createCell(x, y, activeRows) {
 
 function mountLevel() {
   const level = LEVELS[state.levelIndex];
-  const activeRows = new Set();
-
-  for (let row = 0; row < level.rows; row += 1) {
-    activeRows.add(row);
-  }
-
   state.sequence = buildSequence(level);
+  const activeCells = new Set(state.sequence);
   state.nextMoveIndex = 0;
   state.levelStartAt = Date.now();
   elements.board.innerHTML = "";
   elements.board.style.setProperty("--grid-columns", `${level.size}`);
+  elements.board.classList.remove("logic-board-fail");
+  elements.board.classList.remove("logic-board-success");
 
   for (let y = 0; y < level.size; y += 1) {
     for (let x = 0; x < level.size; x += 1) {
-      elements.board.appendChild(createCell(x, y, activeRows));
+      elements.board.appendChild(createCell(x, y, activeCells));
     }
   }
 
@@ -264,6 +303,7 @@ function mountLevel() {
     size: level.size,
     rows: level.rows,
     moveCount: state.sequence.length,
+    pattern: level.pattern,
   });
   renderStatus();
 }

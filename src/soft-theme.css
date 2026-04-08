@@ -670,12 +670,29 @@ body.soft-site .game-page {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
+.play-page .tap-zone.tap-zone-fever {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(253, 211, 77, 0.3), transparent 28%),
+    linear-gradient(180deg, rgba(255, 249, 214, 0.92), rgba(255, 234, 184, 0.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 0.35rem rgba(253, 211, 77, 0.16);
+}
+
 .play-page .tap-zone-text {
   color: var(--soft-muted);
 }
 
 .play-page .vision-cell {
   box-shadow: none;
+}
+
+.play-page .vision-cell-noisy {
+  transform: rotate(var(--vision-tilt, 0deg));
+}
+
+.play-page .vision-cell-decoy {
+  box-shadow: 0 0 0 0.28rem rgba(253, 211, 77, 0.45);
 }
 
 .play-page .logic-cell {
@@ -689,6 +706,28 @@ body.soft-site .game-page {
 
 .play-page .logic-cell-cleared {
   background: linear-gradient(180deg, rgba(171, 214, 255, 0.9), rgba(127, 230, 219, 0.8));
+}
+
+.play-page .logic-cell-hit {
+  box-shadow: 0 0 0 0.22rem rgba(15, 118, 110, 0.18);
+}
+
+.play-page .logic-cell-expected {
+  box-shadow: 0 0 0 0.22rem rgba(253, 211, 77, 0.45);
+}
+
+.play-page .logic-cell-wrong {
+  box-shadow: 0 0 0 0.22rem rgba(244, 63, 94, 0.36);
+}
+
+.play-page .logic-board.logic-board-success {
+  box-shadow: 0 0 0 0.32rem rgba(15, 118, 110, 0.14);
+  border-radius: 1.25rem;
+}
+
+.play-page .logic-board.logic-board-fail {
+  box-shadow: 0 0 0 0.32rem rgba(244, 63, 94, 0.12);
+  border-radius: 1.25rem;
 }
 
 .play-bento {
@@ -1303,6 +1342,10 @@ body.soft-site .game-page {
     flex-wrap: wrap;
   }
 
+  .soft-profile-pill {
+    justify-content: center;
+  }
+
   .discover-hero-card,
   .board-hero-content {
     grid-template-columns: 1fr;
@@ -1331,6 +1374,25 @@ body.soft-site .game-page {
     font-size: 1.25rem;
   }
 
+  .soft-topbar-group {
+    gap: 0.9rem;
+  }
+
+  .soft-nav a,
+  .soft-icon-button,
+  .soft-pill-button {
+    min-height: 2.7rem;
+    padding-inline: 0.9rem;
+  }
+
+  .soft-profile-pill {
+    padding-right: 0.3rem;
+  }
+
+  .soft-profile-copy {
+    padding-right: 0.2rem;
+  }
+
   .discover-hero-copy h1,
   .play-title,
   .board-page-title {
@@ -1350,11 +1412,64 @@ body.soft-site .game-page {
     border-radius: 2rem;
   }
 
+  .play-stage-surface {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .play-page .tap-zone {
+    min-height: min(40vh, 320px);
+  }
+
+  .play-page .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .play-bento {
+    gap: 1rem;
+  }
+
   .leaderboards-main {
     padding: 1.25rem 1rem 3rem;
   }
 
   .leaderboards-sidebar {
     padding: 1.25rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .soft-topbar,
+  .soft-shell {
+    width: min(calc(100% - 1rem), var(--soft-content));
+  }
+
+  .soft-profile-copy {
+    display: none;
+  }
+
+  .soft-nav {
+    gap: 0.35rem;
+  }
+
+  .soft-nav a {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.92rem;
+  }
+
+  .discover-hero-copy h1,
+  .play-title {
+    font-size: 2rem;
+  }
+
+  .play-stage-card,
+  .play-bento-card,
+  .play-sidebar-card {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .play-page .tap-zone {
+    min-height: 15rem;
   }
 }

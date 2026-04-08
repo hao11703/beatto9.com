@@ -29,6 +29,7 @@ const elements = {
   timer: document.getElementById("timer-value"),
   attempts: document.getElementById("attempt-value"),
   tapZone: document.getElementById("tap-zone"),
+  tapZoneText: document.getElementById("tap-zone-text"),
   tapCount: document.getElementById("tap-count"),
   message: document.getElementById("message-text"),
   retryButton: document.getElementById("retry-button"),
@@ -36,6 +37,7 @@ const elements = {
   bestLevel: document.getElementById("best-level-value"),
   bestTime: document.getElementById("best-time-value"),
   leaderboardList: document.getElementById("leaderboard-list"),
+  focus: document.getElementById("focus-value"),
 };
 
 const state = {
@@ -48,7 +50,36 @@ const state = {
   runStarted: false,
   attempts: 1,
   totalRunTimeMs: 0,
+  combo: 0,
+  bestCombo: 0,
+  lastTapAt: 0,
+  feverActive: false,
+  timeBonusMs: 0,
+  awardedMilestones: new Set(),
 };
+
+function getLevelBudgetMs() {
+  return LEVELS[state.levelIndex].timeMs + state.timeBonusMs;
+}
+
+function updateTapMood() {
+  elements.focus.textContent = state.feverActive
+    ? "Fever mode"
+    : state.combo >= 5
+      ? `Combo x${state.combo}`
+      : "Full speed";
+
+  elements.tapZoneText.textContent = state.feverActive
+    ? "Fever: every tap hits harder"
+    : state.combo >= 4
+      ? `Combo x${state.combo} is active`
+      : state.runStarted
+        ? "Keep the rhythm alive"
+        : "Tap to start the timer";
+
+  document.body.classList.toggle("tap-fever", state.feverActive);
+  elements.tapZone.classList.toggle("tap-zone-fever", state.feverActive);
+}
 
 function formatMs(ms) {
   return `${(ms / 1000).toFixed(1)}s`;
@@ -104,6 +135,7 @@ function render() {
   elements.attempts.textContent = `${state.attempts}`;
   elements.tapCount.textContent = `${state.tapCount}`;
   elements.progressFill.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  updateTapMood();
 }
 
 async function finishRun(success) {
@@ -162,6 +194,11 @@ async function goToNextLevel() {
   state.runStarted = false;
   state.remainingMs = LEVELS[state.levelIndex].timeMs;
   state.levelStartAt = 0;
+  state.combo = 0;
+  state.lastTapAt = 0;
+  state.feverActive = false;
+  state.timeBonusMs = 0;
+  state.awardedMilestones = new Set();
   setMessage(`Level ${completedLevel} cleared. Get ready for Level ${state.levelIndex + 1}.`);
   render();
 }
@@ -169,6 +206,7 @@ async function goToNextLevel() {
 function failLevel() {
   window.clearInterval(state.timerId);
   state.timerId = null;
+  state.feverActive = false;
 
   const maxLevel = Math.max(getTapSprintBest().bestLevel, state.levelIndex);
   saveTapSprintBest({
@@ -190,12 +228,14 @@ function startLevelTimer() {
   state.levelStartAt = Date.now();
   emitEvent("level_start", {
     target: LEVELS[state.levelIndex].target,
-    timeMs: LEVELS[state.levelIndex].timeMs,
+    timeMs: getLevelBudgetMs(),
   });
 
   state.timerId = window.setInterval(() => {
     const elapsed = Date.now() - state.levelStartAt;
-    state.remainingMs = LEVELS[state.levelIndex].timeMs - elapsed;
+    state.remainingMs = getLevelBudgetMs() - elapsed;
+    const feverThreshold = Math.max(900, getLevelBudgetMs() * 0.34);
+    state.feverActive = state.levelIndex >= 3 && state.remainingMs <= feverThreshold;
 
     if (state.remainingMs <= 0) {
       state.remainingMs = 0;
@@ -217,7 +257,29 @@ function handleTap() {
     return;
   }
 
-  state.tapCount += 1;
+  const now = Date.now();
+  state.combo = now - state.lastTapAt <= 420 ? state.combo + 1 : 1;
+  state.lastTapAt = now;
+  state.bestCombo = Math.max(state.bestCombo, state.combo);
+
+  let tapGain = state.feverActive ? 2 : 1;
+  const milestone = Math.floor(state.combo / 6);
+  if (milestone > 0 && !state.awardedMilestones.has(milestone)) {
+    state.awardedMilestones.add(milestone);
+    tapGain += 1;
+    state.timeBonusMs += 180;
+    setMessage(`Combo x${state.combo}. Bonus tap and +0.2s time burst.`);
+    emitEvent("combo_bonus", {
+      combo: state.combo,
+      bonusTap: 1,
+      bonusTimeMs: 180,
+      feverActive: state.feverActive,
+    });
+  } else if (state.feverActive && tapGain > 1) {
+    setMessage("Fever mode is live. Each tap now hits twice.");
+  }
+
+  state.tapCount += tapGain;
   render();
 
   if (state.tapCount >= LEVELS[state.levelIndex].target) {
@@ -244,6 +306,12 @@ async function resetRun() {
   state.levelStartAt = 0;
   state.runStarted = false;
   state.totalRunTimeMs = 0;
+  state.combo = 0;
+  state.bestCombo = 0;
+  state.lastTapAt = 0;
+  state.feverActive = false;
+  state.timeBonusMs = 0;
+  state.awardedMilestones = new Set();
   state.attempts += 1;
   state.session = await startRemoteSession(createSession(GAME_ID));
   emitEvent("retry_click", { attempts: state.attempts });
