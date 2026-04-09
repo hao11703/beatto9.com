@@ -782,6 +782,50 @@ body.soft-site .game-page {
   color: var(--soft-muted);
 }
 
+.seo-info-block,
+.seo-game-info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: var(--soft-radius-lg);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--soft-shadow);
+}
+
+.seo-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.seo-info-card,
+.seo-game-info {
+  color: var(--soft-muted);
+  line-height: 1.7;
+}
+
+.seo-info-card h3,
+.seo-game-info h2,
+.seo-game-info h3 {
+  margin: 0 0 0.7rem;
+  color: var(--soft-text);
+  font-family: "Plus Jakarta Sans", "Be Vietnam Pro", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.seo-game-info h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+}
+
+.seo-game-info h3 {
+  margin-top: 1.2rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+}
+
+.seo-game-info p,
+.seo-info-card p {
+  margin: 0;
+}
+
 .play-step-index {
   display: grid;
   place-items: center;
@@ -1319,7 +1363,8 @@ body.soft-site .game-page {
   .play-bento,
   .discover-grid,
   .discover-mini-grid,
-  .leaderboards-mini-grid {
+  .leaderboards-mini-grid,
+  .seo-info-grid {
     grid-template-columns: 1fr;
   }
 
